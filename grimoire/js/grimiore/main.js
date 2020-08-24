@@ -1,5 +1,9 @@
 function main() {
   // Put your code here
+
+  const goodBook = makeGoodSpellBook(allSpells);
+  const evilBook = makeEvilSpellBook(allSpells);
+
   function newSpell(name, isEvil, energyRequired) {
     return {
       Name: name,
@@ -7,15 +11,6 @@ function main() {
       EnergyRequired: energyRequired
     }
   }
-
-  function newBook(title, spells) {
-    return {
-      Title: title,
-      Spells: spells
-    }
-  }
-
-
 
   const newtSpell = newSpell("Turn enemy into a newt", true, 5.1);
   const charitySpell = newSpell("Conjure some gold for a local charity", false, 2.99);
@@ -25,17 +20,35 @@ function main() {
 
   let allSpells = [newtSpell, charitySpell, healSpell, emperorSpell, politicalSpell]
 
-  evilSpells = allSpells.filter(spell => spell.IsEvil === true)
-  goodSpells = allSpells.filter(spell => spell.IsEvil === false)
+  function makeEvilSpellBook(allSpells) {
+    const evilBook = {
+      title: "Evil Book",
+      spells: allSpells.filter(spell => spell.isEvil)
+    };
 
+    return evilBook;
+  }
 
-  let evilBook = newBook("Evil Book", evilSpells);
-  let goodBook = newBook("Good Book", goodSpells);
+  function makeGoodSpellBook(allSpells) {
+    const goodBook = {
+      title: "Good Book",
+      spells: allSpells.filter(spell => !spell.isEvil)
+    };
+
+    return goodBook;
+  }
+
+  function displaySpellBook(book) {
+    console.log(book.title);
+    for (aSpell of book.spells) {
+      console.log(aSpell.name);
+    }
+  }
 
   //Actual Display
   console.log("Do you believe in magic?");
-  console.log(evilBook)
-  console.log(goodBook)
+  displaySpellBook(goodBook)
+  displaySpellBook(evilBook)
 
 
 
